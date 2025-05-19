@@ -1,9 +1,9 @@
 //GPA calculator for ASU-science
 
-
 #include <iostream>
 #include <vector>
 #include <string>
+#include <random>
 using namespace std;
 #define  t "\t\t";
 
@@ -28,15 +28,15 @@ struct course {
 		return gpa;
 	}
 	void gpa2rank() {
-	float n = grade / (credits * 0.5);
-	if (n >= 4) { rank = 'A'; }
-	else if (n >= 3.67) { rank = "A-";}
-	else if (n >= 3.33) { rank = "Β+";}
-	else if (n >= 3.00) { rank = 'B'; }
-	else if (n >= 2.67) { rank = "C+";}
-	else if (n >= 2.33) { rank = 'C'; }
-	else if (n >= 2.00) { rank = 'D'; }
-	else { rank = 'F';}
+		float n = grade / (credits * 0.5);
+		if (n >= 4) { rank = 'A'; }
+		else if (n >= 3.67) { rank = "A-";}
+		else if (n >= 3.33) { rank = "Β+";}
+		else if (n >= 3.00) { rank = 'B'; }
+		else if (n >= 2.67) { rank = "C+";}
+		else if (n >= 2.33) { rank = 'C'; }
+		else if (n >= 2.00) { rank = 'D'; }
+		else { rank = 'F';}
 	}
 	void display() {
 		cout << name << t;
@@ -63,6 +63,22 @@ void pastSem(float& nomerator, int& Tcredits) {
 		cout << "Invalid insert!\nPlease insert a valid character\n\n"; pastSem(nomerator,Tcredits);
 	}
 }
+string message(float gpa) {
+	int i;
+	srand((int)gpa);
+	i = rand() % 10;
+	string quote[4][10] =
+	{
+		"You rock!","Top tier!","On fire!","So smart!","Ace mode","Too easy","Wow, A!","Nailed it","Brainy!","Slayed!",
+		"Keep it up!","Nice try!","You got it!","So close!","Not bad!","Push more","Stay cool","Keep grind","Halfway!","Try hard!",
+		"U got this","Next time!","Don’t quit","Try again","Head up!","Go harder","Fix this","Be brave","You can!","One shot!",
+		"Wake up!","Yikes!","Do work!","KYS","Low batt","GPA who?","Help?","Oof...","Fix it!","Come on!" 
+	};
+	if (gpa >= 3.5) return quote[0][i];
+	else if (gpa >= 2.5) return quote[1][i];
+	else if (gpa >= 1.0) return quote[2][i];
+	else return quote[3][i];
+}
 int main() {
 	int num, credits;
 	float grade,nomerator = 0;
@@ -77,14 +93,14 @@ int main() {
 		cout << "Course " << i + 1 << endl;
 		cout << "  Insert the course's name : ";	cin >> name;
 		cout << "  Insert the course's credit hours : ";	cin >> credits;
-		cout << "  Insert the course's grade : ";	cin >> grade;
+		cout << "  Insert the course's degree : ";	cin >> grade;
 		C.push_back({ name,credits,grade });
 		totalcredits += credits;
 	}
 	cout << "Name" << t;
 	cout << "Credits" << t;
-	cout << "Grade" << t;
-	cout << "Rank" << "\n";
+	cout << "Degree" << t;
+	cout << "Grade" << "\n";
 
 	for (auto it : C) {
 		nomerator += it.credits * it.gpa;
@@ -97,6 +113,7 @@ int main() {
 	cout << totalpassed << t;
 	cout << nomerator/totalcredits << t;
 	C.back().gpa2rank();
-	cout << C.back().rank << "\n";
+	cout << C.back().rank << t;
+	cout << message(C.back().gpa) << "\n";
 	return 0;
 }
