@@ -28,15 +28,15 @@ struct course {
 		return gpa;
 	}
 	void gpa2rank() {
-		float n = grade / (credits * 0.5);
-		if (n == 4) { rank = 'A'; }
-		else if (n == 3.67) { rank = "A-";}
-		else if (n == 3.33) { rank = "Β+";}
-		else if (n == 3.00) { rank = 'B'; }
-		else if (n == 2.67) { rank = "C+";}
-		else if (n == 2.33) { rank = 'C'; }
-		else if (n == 2.00) { rank = 'D'; }
-		else { rank = 'F';}
+	float n = grade / (credits * 0.5);
+	if (n >= 4) { rank = 'A'; }
+	else if (n >= 3.67) { rank = "A-";}
+	else if (n >= 3.33) { rank = "Β+";}
+	else if (n >= 3.00) { rank = 'B'; }
+	else if (n >= 2.67) { rank = "C+";}
+	else if (n >= 2.33) { rank = 'C'; }
+	else if (n >= 2.00) { rank = 'D'; }
+	else { rank = 'F';}
 	}
 	void display() {
 		cout << name << t;
